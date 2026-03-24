@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventory Management SPA</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="app">
+<aside class="sidebar card">
+<div class="logo">IMS</div>
+<div class="muted"> Inventory Management System</div>
+<nav class="nav" style="margin-top:14px">
+  <button data-view="dashboard" class="active">Dashboard</button>
+  <button data-view="add">Add Product</button>
+  <button data-view="update">Update Product</button>
+  <button data-view="delete">Delete Product</button>
+  <button data-view="list">View Products</button>
+</nav>
+</aside>
+<main class="main">
+<div class="topbar"><h2 id="view-title">Dashboard</h2></div>
+<div id="view-container"></div>
+</main>
+</div>
+
+<!-- Templates -->
+<template id="tpl-dashboard">
+  <div class="card">
+    <h3>Dashboard Stats</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px">
+      <div class="card" style="text-align:center"><div class="muted">Total Products</div><div id="stat-total" style="font-size:22px;font-weight:700">0</div></div>
+      <div class="card" style="text-align:center"><div class="muted">Total Stock</div><div id="stat-stock" style="font-size:22px;font-weight:700">0</div></div>
+    </div>
+    <div style="margin-top:20px">
+      <canvas id="stockChart" style="height:200px"></canvas>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-add">
+  <div class="card">
+    <h3>Add Product</h3>
+    <form id="addForm" class="row">
+      <div><label>Product Name</label><input name="name" required></div>
+      <div><label>Product ID</label><input name="pid" type="number" required></div>
+      <div><label>Stock Quantity</label><input name="qty" type="number" required></div>
+      <div style="grid-column:1/-1; margin-top:8px"><button class="btn primary" type="submit">Add Product</button></div>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-update">
+  <div class="card">
+    <h3>Update Product</h3>
+    <form id="updateForm" class="row">
+      <div><label>Product ID</label><input name="pid" type="number" required></div>
+      <div><label>New Name</label><input name="name"></div>
+      <div><label>New Stock Quantity</label><input name="qty" type="number"></div>
+      <div style="grid-column:1/-1; margin-top:8px"><button class="btn primary" type="submit">Update Product</button></div>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-delete">
+  <div class="card">
+    <h3>Delete Product</h3>
+    <form id="deleteForm" class="row">
+      <div><label>Product ID</label><input name="pid" type="number" required></div>
+      <div style="grid-column:1/-1; margin-top:8px"><button class="btn primary" type="submit">Delete Product</button></div>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-list">
+  <div class="card">
+    <h3>Products List</h3>
+    <input id="searchProd" placeholder="Search by Product ID or Name" style="margin-bottom:8px;padding:6px 10px;border-radius:8px;border:1px solid #ccc;width:100%">
+    <table><thead><tr><th>Product Name</th><th>Product ID</th><th>Stock</th></tr></thead><tbody id="productTable"></tbody></table>
+  </div>
+</template>
+
+<script src="script.js"></script>
+</body>
+</html>
